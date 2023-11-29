@@ -1,6 +1,8 @@
 ## First
-This was my assignment for online Java course.
-The result and what I use at the end.
+This was my solution for my assignment in online Java course. My original repository for this assignment is private in organization group on GitHub and I imported my code to this repository.
+This was a big assignment for me and I had to fix and improved my code many times including handling the cases when the users enter with the wrong format, the ID doesn't exist.
+But git histories of methods, code related to case 1 - case 24 in each file are in an original private repository.
+The result photos and what I used to build the application is at the end of this README.
 
 ---
 ### Level of Difficulty: Hard
@@ -225,5 +227,5 @@ Each of these collections has its own advantages and use cases, and they are cho
 ### What I used
 
 
-### What I used in Java
+### What I used in Java    System.out.println("Volunteer Name: " + volunteer.getVolunteerName());
 Access modifiers, Encapsulation, Constructor, Override, toString method, Static method, Static modifier
