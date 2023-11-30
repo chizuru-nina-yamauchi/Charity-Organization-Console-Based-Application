@@ -1,11 +1,21 @@
 package information_input;
 
-import information_organize.*;
+import information_organize.Donation;
+import information_organize.DonationTracker;
+import information_organize.Donor;
+import information_organize.DonorTracker;
+import information_organize.Project;
+import information_organize.ProjectTracker;
+import information_organize.Volunteer;
+import information_organize.VolunteerTracker;
+
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.*;
+import java.util.List;
+import java.util.Scanner;
+import java.util.TreeMap;
 
 public class Main {
     private static int donorCounter = 0; // counter to generate unique donor IDs.
@@ -22,8 +32,8 @@ public class Main {
         TreeMap<String, Project> projectObjects = new TreeMap<>();
 
         while(true){
-
-            System.out.println("Option: You have to add the information of 1 - 4 before doing anything from 5");
+            System.out.println("----------------------------------------------------------------------------------------");
+            System.out.println("Option: *You have to add the information of option 1 - 4 before selecting option 5 - 29.");
             System.out.println("1. Add a donor's information.");
             System.out.println("2. Add a volunteer's information.");
             System.out.println("3. Add a project information.");
@@ -50,14 +60,12 @@ public class Main {
             System.out.println("24. Show the average of the donation.");
             System.out.println("25. Calculate and show the total numbers of donors, volunteers, projects and donations.");
             System.out.println("26. Sort the donors, volunteers, projects and donations based on name, amount donated, number of projects.");
-            System.out.println("27. Search a donor by ID or name.");
-            System.out.println("28. Search a volunteer by ID or name.");
-            System.out.println("29. Search a project by name.");
-            System.out.println("30. Search a donation by ID.");
-            System.out.println("31. Export details of the donors, volunteers, projects, and donations to a CSV file.");
-            System.out.println("32. Import the details of the donors, volunteers, projects, and donations from a CSV file.");
-            System.out.println("33. Exist the system.");
+            System.out.println("27. Search a donor by ID or name / Search a volunteer by ID or name / Search a project by name / Search a donation by ID.");
+            System.out.println("28. Export details of the donors, volunteers, projects, and donations to a CSV file.");
+            System.out.println("29. Import the details of the donors, volunteers, projects, and donations from a CSV file.");
+            System.out.println("30. Exist the system.");
             System.out.println("Choose your option: ");
+            System.out.println("----------------------------------------------------------------------------------------");
 
             try {
                 String optionInput = input.nextLine();
@@ -82,7 +90,7 @@ public class Main {
                             Donor newDonor = new Donor(donorName, donorContactNumber, donorEmail);
                             newDonor.setDonorID(uniqueDonorID);
                             donorTracker.addDonorDetails(uniqueDonorID, newDonor);
-                            System.out.println("Donor added successfully:" + newDonor);
+                            System.out.println("Donor added successfully: " + newDonor);
 
                             break;
 
@@ -103,7 +111,7 @@ public class Main {
                             newVolunteer.setVolunteerID(uniqueVolunteerID);
                             volunteerTracker.addVolunteerDetails(uniqueVolunteerID, newVolunteer);
 
-                            System.out.println("Volunteer added successfully:" + newVolunteer);
+                            System.out.println("Volunteer added successfully: " + newVolunteer);
 
                             break;
 
@@ -130,25 +138,31 @@ public class Main {
 
                             if(donorTracker.hasDonorID(donorID)) {
 
-                                System.out.println("Enter the amount that the donor donated.");
-                                String donatedAmountInput = input.nextLine();
-                                double donatedAmount = Double.parseDouble(donatedAmountInput);
-
-                                System.out.println("Enter the date of donation with the format 'dd-mm-yyyy'.");
-                                String dateOfDonationInput = input.nextLine();
-                                LocalDate dateOfDonation = LocalDate.parse(dateOfDonationInput, formatter);
-
-                                System.out.println("Enter the project name for this donation.");
+                                System.out.println("Enter the project name for the donation.");
                                 String projectNameForDonation = input.nextLine();
 
-                                int uniqueDonationID = ++donationCounter;
+                                if(projectTracker.getProjectByName(projectNameForDonation) != null) {
 
-                                Donation newDonation = new Donation(donorID, donatedAmount, dateOfDonation, projectNameForDonation);
-                                newDonation.setDonationID(uniqueDonationID);
-                                donationTracker.addDonationDetails(newDonation);
-                                System.out.println("Donation added successfully: " + newDonation);
+                                    System.out.println("Enter the amount that the donor donated.");
+                                    String donatedAmountInput = input.nextLine();
+                                    double donatedAmount = Double.parseDouble(donatedAmountInput);
+
+                                    System.out.println("Enter the date of donation with the format 'dd-mm-yyyy'.");
+                                    String dateOfDonationInput = input.nextLine();
+                                    LocalDate dateOfDonation = LocalDate.parse(dateOfDonationInput, formatter);
+
+                                    int uniqueDonationID = ++donationCounter;
+
+                                    Donation newDonation = new Donation(donorID, donatedAmount, dateOfDonation, projectNameForDonation);
+                                    newDonation.setDonationID(uniqueDonationID);
+                                    donationTracker.addDonationDetails(newDonation);
+                                    System.out.println("Donation added successfully: " + newDonation);
+
+                                }else{
+                                    System.out.println("Project name not found." + "\n" + "Please make sure if you added the project name and information 'with option 3' first or make sure if the project name is correct.");
+                                }
                             }else {
-                                System.out.println("Donor ID not found.");
+                                System.out.println("Donor ID not found." + "\n" + "Please make sure if you added the donor information first or make sure if the donor ID is correct.");
                             }
 
                             break;
@@ -158,6 +172,7 @@ public class Main {
                             System.out.println("Enter the donor ID you want to update: ");
                             String donorIDToUpdateInput = input.nextLine();
                             int donorIDToUpdate = Integer.parseInt(donorIDToUpdateInput);
+                            System.out.println("Current information for donor ID " + donorIDToUpdate + ": " + donorTracker.getDonorByID(donorIDToUpdate));
 
                             if (donorTracker.hasDonorID(donorIDToUpdate)) {
                                 Donor donorToUpdate = donorTracker.getDonorByID(donorIDToUpdate);
@@ -165,10 +180,12 @@ public class Main {
                                 boolean continueUpdatingDonor = true;
 
                                 while (continueUpdatingDonor) {
+                                    System.out.println("-------------------------------");
                                     System.out.println("Choose what you want to update:");
                                     System.out.println("1. Contact Number");
                                     System.out.println("2. Email Address");
                                     System.out.println("3. Exit");
+                                    System.out.println("-------------------------------");
                                     int updateOptionDonor = Integer.parseInt(input.nextLine());
 
                                     switch (updateOptionDonor) {
@@ -208,6 +225,8 @@ public class Main {
                             System.out.println("Enter the volunteer ID you want to update: ");
                             String volunteerIDToUpdateInput = input.nextLine();
                             int volunteerIDToUpdate = Integer.parseInt(volunteerIDToUpdateInput);
+                            System.out.println("Current information for volunteer ID " + volunteerIDToUpdate + ": " + volunteerTracker.getVolunteerByID(volunteerIDToUpdate));
+
 
                             if (volunteerTracker.hasVolunteerID(volunteerIDToUpdate)) {
                                 Volunteer volunteerToUpdate = volunteerTracker.getVolunteerByID(volunteerIDToUpdate);
@@ -215,10 +234,12 @@ public class Main {
                                 boolean continueUpdating = true;
 
                                 while (continueUpdating) {
+                                    System.out.println("-------------------------------");
                                     System.out.println("Choose what you want to update:");
                                     System.out.println("1. Contact Number");
                                     System.out.println("2. Email Address");
                                     System.out.println("3. Exit");
+                                    System.out.println("-------------------------------");
                                     String updateOptionInput = input.nextLine();
                                     int updateOption = Integer.parseInt(updateOptionInput);
 
@@ -257,6 +278,8 @@ public class Main {
                         case 7:
                             System.out.println("Enter the project name you want to update: ");
                             String projectNameToUpdate = input.nextLine();
+                            System.out.println("Current information for project " + projectNameToUpdate + ": " + projectTracker.getProjectByName(projectNameToUpdate));
+
 
                             if (projectTracker.hasProjectName(projectNameToUpdate)) {
                                 Project projectToUpdate = projectTracker.getProjectByName(projectNameToUpdate);
@@ -264,10 +287,12 @@ public class Main {
                                 boolean continueUpdatingProject = true;
 
                                 while (continueUpdatingProject) {
+                                    System.out.println("-------------------------------");
                                     System.out.println("Choose what you want to update:");
                                     System.out.println("1. Project Description");
                                     System.out.println("2. Target Amount");
                                     System.out.println("3. Exit");
+                                    System.out.println("-------------------------------");
                                     int updateOptionProject = Integer.parseInt(input.nextLine());
 
                                     switch (updateOptionProject) {
@@ -307,6 +332,8 @@ public class Main {
                             System.out.println("Enter the donation ID you want to update: ");
                             String donationIDToUpdateInput = input.nextLine();
                             int donationIDToUpdate = Integer.parseInt(donationIDToUpdateInput);
+                            System.out.println("Current information for donation ID " + donationIDToUpdate + ": " + donationTracker.getDonationByID(donationIDToUpdate));
+
 
                             if (donationTracker.hasDonationID(donationIDToUpdate)) {
                                 Donation donationToUpdate = donationTracker.getDonationByID(donationIDToUpdate);
@@ -314,10 +341,12 @@ public class Main {
                                 boolean continueUpdatingDonation = true;
 
                                 while (continueUpdatingDonation) {
+                                    System.out.println("-------------------------------");
                                     System.out.println("Choose what you want to update:");
                                     System.out.println("1. Donated Amount");
                                     System.out.println("2. Date of Donation");
                                     System.out.println("3. Exit");
+                                    System.out.println("-------------------------------");
                                     int updateOptionDonation = Integer.parseInt(input.nextLine());
 
                                     switch (updateOptionDonation) {
@@ -428,16 +457,19 @@ public class Main {
                         case 19:
                             boolean continueAssigning = true;
                             while (continueAssigning) {
+                                System.out.println("-------------------------------");
                                 System.out.println("1. Assign Volunteer");
                                 System.out.println("2. Exit");
                                 System.out.println("Enter your choice: ");
+                                System.out.println("-------------------------------");
                                 String choiceForAssigningInput = input.nextLine();
                                 int choiceForAssigning = Integer.parseInt(choiceForAssigningInput);
 
                                 switch (choiceForAssigning) {
                                     case 1:
                                         System.out.println("Enter the Volunteer ID: ");
-                                        int volunteerID = Integer.parseInt(input.nextLine());
+                                        String volunteerIDInput = input.nextLine();
+                                        int volunteerID = Integer.parseInt(volunteerIDInput);
 
                                         System.out.println("Enter the Project Name: ");
                                         String projectNameToAssignVolunteer = input.nextLine();
@@ -498,7 +530,152 @@ public class Main {
                             donationTracker.calculateAverageOfDonation();
                             break;
 
-                        case 33:
+                        case 25:
+                            int numberOfTotalDonors = donorTracker.numberOfTotalDonors();
+                            System.out.println("Total number of donors: " + numberOfTotalDonors);
+
+                            int numberOfTotalVolunteers = volunteerTracker.numberOfTotalVolunteers();
+                            System.out.println("Total number of volunteers: " + numberOfTotalVolunteers);
+
+                            int numberOfTotalProjects = projectTracker.numberOfTotalProjects();
+                            System.out.println("Total number of projects: " + numberOfTotalProjects);
+
+                            int numberOfTotalDonations = donationTracker.numberOfTotalDonations();
+                            System.out.println("Total number of donations: " + numberOfTotalDonations);
+
+                            break;
+
+                        case 26:
+                            System.out.println("Donors sorted by name(Alphabetically): " + "\n" + donorTracker.sortDonorsByName());
+                            System.out.println("Volunteers sorted by name(Alphabetically): " + "\n" + volunteerTracker.sortVolunteersByName());
+                            System.out.println("Projects sorted by name(Alphabetically):" + "\n" + projectTracker.sortProjectsByName());
+                            System.out.println("Donation sorted by amount(from most to less): " + "\n" + donationTracker.sortDonationsByAmount());
+                            break;
+
+                        case 27:
+                            boolean continueSearching = true;
+                            while (continueSearching) {
+                                System.out.println("-------------------------------");
+                                System.out.println("1. Search donor by ID");
+                                System.out.println("2. Search volunteer by ID");
+                                System.out.println("3. Search project by name");
+                                System.out.println("4. Search donation by ID");
+                                System.out.println("5. Exit");
+                                System.out.println("Enter your choice: ");
+                                System.out.println("-------------------------------");
+                                String choiceForSearchingInput = input.nextLine();
+                                int choiceForSearching = Integer.parseInt(choiceForSearchingInput);
+
+
+                                switch (choiceForSearching) {
+                                    case 1:
+                                        System.out.println("Enter the donor ID: ");
+                                        String donorIDToSearchInput = input.nextLine();
+                                        int donorIDToSearch = Integer.parseInt(donorIDToSearchInput);
+
+                                        boolean isDonorFound = donorTracker.hasDonorID(donorIDToSearch);
+                                        if (isDonorFound) {
+                                            System.out.println("Donor information for donor ID " + donorIDToSearch + "\n" + donorTracker.getDonorByID(donorIDToSearch));
+
+                                        } else {
+                                            System.out.println("Donor ID not found." + "\n" + "Please make sure if you added the donor information first or make sure if the donor ID is correct.");
+                                        }
+
+                                        break;
+
+                                    case 2:
+                                        System.out.println("Enter the volunteer ID: ");
+                                        String volunteerIDToSearchInput = input.nextLine();
+                                        int volunteerIDToSearch = Integer.parseInt(volunteerIDToSearchInput);
+
+                                        boolean isVolunteerFound = volunteerTracker.hasVolunteerID(volunteerIDToSearch);
+                                        if (isVolunteerFound) {
+                                            System.out.println("Volunteer information for volunteer ID " + volunteerIDToSearch + "\n" + volunteerTracker.getVolunteerByID(volunteerIDToSearch));
+
+                                        } else {
+                                            System.out.println("Volunteer ID not found." + "\n" + "Please make sure if you added the volunteer information first or make sure if the volunteer ID is correct.");
+                                        }
+
+                                        break;
+
+                                    case 3:
+                                        System.out.println("Enter the project Name(*enter precisely ex:Lower case/Upper case/Space) : ");
+                                        String projectNameToSearch = input.nextLine();
+
+                                        boolean isProjectFound = projectTracker.hasProjectName(projectNameToSearch);
+                                        if (isProjectFound) {
+                                            System.out.println("Project information for project " + projectNameToSearch + "\n" + projectTracker.getProjectByName(projectNameToSearch));
+
+                                        } else {
+                                            System.out.println("Project name not found." + "\n" + "Please make sure if you added the project information first or make sure if the project name is correct.");
+                                        }
+
+                                        break;
+
+                                    case 4:
+                                        System.out.println("Enter the donation ID: ");
+                                        String donationIDToSearchInput = input.nextLine();
+                                        int donationIDToSearch = Integer.parseInt(donationIDToSearchInput);
+
+                                        boolean isDonationFound = donationTracker.hasDonationID(donationIDToSearch);
+                                        if (isDonationFound) {
+                                            System.out.println("Donation information for donation ID " + donationIDToSearch + "\n" + donationTracker.getDonationByID(donationIDToSearch));
+
+                                        } else {
+                                            System.out.println("Donation ID not found." + "\n" + "Please make sure if you added the donation information first or make sure if the donation ID is correct.");
+                                        }
+
+                                        break;
+
+
+                                    case 5:
+                                        continueSearching = false;// Exit case 27
+                                        break;
+                                    default:
+                                        System.out.println("Invalid choice. Please enter a valid option.");
+                                        break;
+                                }
+
+                            }
+
+                            break;
+
+                        case 28:
+                            System.out.println("Enter the file name to export donor details: ");
+                            String donorFileName = input.nextLine();
+                            donorTracker.exportDonorDetailsToCSV(donorFileName);
+
+                            System.out.println("Enter the file name to export volunteer details: ");
+                            String volunteerFileName = input.nextLine();
+                            volunteerTracker.exportVolunteerDetailsToCSV(volunteerFileName);
+
+                            System.out.println("Enter the file name to export project details: ");
+                            String projectFileName = input.nextLine();
+                            projectTracker.exportProjectDetailsToCSV(projectFileName);
+
+                            System.out.println("Enter the file name to export donation details: ");
+                            String donationFileName = input.nextLine();
+                            donationTracker.exportDonationDetailsToCSV(donationFileName);
+                            break;
+
+                        case 29:
+                            System.out.println("Enter the file name to import donors' information: ");
+                            String fileNameToImportDonors = input.nextLine();
+                            donorTracker.importDonorDetailsFromCSV(fileNameToImportDonors);
+
+                            System.out.println("Enter the file name to import volunteers' information: ");
+                            String fileNameToImportVolunteers = input.nextLine();
+                            volunteerTracker.importVolunteerDetailsFromCSV(fileNameToImportVolunteers);
+
+                            System.out.println("Enter the file name to import projects' information: ");
+                            String fileNameToImportProjects = input.nextLine();
+                            projectTracker.importProjectDetailsFromCSV(fileNameToImportProjects);
+
+                            System.out.println("Enter the file name to import donations' information: ");
+                            String fileNameToImportDonations = input.nextLine();
+                            donationTracker.importDonationDetailsFromCSV(fileNameToImportDonations);
+                            break;
+                        case 30:
                             System.out.println("Exiting the system.");
                             System.exit(0);
 

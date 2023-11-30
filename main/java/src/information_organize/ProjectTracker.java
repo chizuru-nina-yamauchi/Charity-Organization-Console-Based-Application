@@ -1,5 +1,8 @@
 package information_organize;
 
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +26,7 @@ public class ProjectTracker {
 
 
 
-    //implement the method of containsDonor to check if the donor ID exist or there is no donor ID that the users entered.
+    //implement the method of hasProjectName to check if the project exist or there is no project name that the users entered.
     public boolean hasProjectName(String projectName){
 
         return projectObjects.containsKey(projectName);
@@ -119,7 +122,68 @@ public class ProjectTracker {
         }
     }
 
+    public int numberOfTotalProjects(){
+        return  projectObjects.size();
+    }
 
+    public List<Project> sortProjectsByName() {
+        List<Project> sortedProjects = new ArrayList<>(projectObjects.values());
+
+        // Sort projects by name
+        sortedProjects.sort(Comparator.comparing(Project::getProjectName));
+
+        return sortedProjects;
+    }
+
+    public void exportProjectDetailsToCSV(String fileName) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            writer.write("ProjectName,Description,TargetAmount"); // CSV header
+
+            for (Map.Entry<String, Project> entry : projectObjects.entrySet()) {
+                Project project = entry.getValue();
+                writer.newLine();
+                writer.write(project.getProjectName() + "," +
+                                 project.getProjectDescription() + "," +
+                                 project.getProjectTargetAmount());
+            }
+
+            System.out.println("Details exported successfully to " + fileName);
+        } catch (IOException e) {
+            System.out.println("Error exporting details to CSV: " + e.getMessage());
+        }
+    }
+
+    public void importProjectDetailsFromCSV(String fileName) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            reader.readLine();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+                // Parse the data and create Project objects
+                String projectName = data[0];
+                String projectDescription = data[1];
+                double projectTargetAmount = Double.parseDouble(data[2]);
+
+                Project project = new Project(projectName, projectDescription, projectTargetAmount);
+                projectObjects.put(projectName, project);
+            }
+            System.out.println("Details imported successfully from " + fileName);
+            System.out.println("--------------");
+
+            // Display imported information
+            System.out.println("Imported Project Information:");
+            for (Map.Entry<String, Project> entry : projectObjects.entrySet()) {
+                Project project = entry.getValue();
+                System.out.println("Project Name: " + project.getProjectName());
+                System.out.println("Project Target Amount: " + project.getProjectTargetAmount());
+                System.out.println("Description: " + project.getProjectDescription());
+                System.out.println("Project assigned volunteers: " + project.getProjectAssignedVolunteers());
+                System.out.println("--------------");
+            }
+        } catch (IOException | NumberFormatException e) {
+            System.out.println("Error importing details from CSV: " + e.getMessage());
+        }
+    }
 
 
 

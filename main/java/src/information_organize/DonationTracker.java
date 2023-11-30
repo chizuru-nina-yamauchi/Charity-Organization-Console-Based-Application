@@ -1,6 +1,14 @@
 package information_organize;
 
-import java.util.*;
+import java.io.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class DonationTracker {
 
@@ -152,6 +160,70 @@ public class DonationTracker {
             System.out.println("No donations found to calculate the average.");
         }
     }
+
+    public int numberOfTotalDonations() {
+        return donationObjects.size();
+    }
+    public List<Donation> sortDonationsByAmount() {
+        List<Donation> sortedDonations = new ArrayList<>(donationObjects);
+
+        // Sort donations by amount
+        sortedDonations.sort(Comparator.comparingDouble(Donation::getDonatedAmount));
+
+        return sortedDonations;
+    }
+    public void exportDonationDetailsToCSV(String fileName) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            writer.write("DonationID,DonorID,Amount,Date,ProjectName"); // CSV header
+
+            for (Donation donation : donationObjects) {
+                writer.newLine();
+                writer.write(donation.getDonationID() + "," +
+                        donation.getDonationDonorID() + "," +
+                        donation.getDonatedAmount() + "," +
+                        donation.getDateOfDonation() + "," +
+                        donation.getProjectNameForDonation());
+            }
+
+            System.out.println("Details exported successfully to " + fileName);
+        } catch (IOException e) {
+            System.out.println("Error exporting details to CSV: " + e.getMessage());
+        }
+    }
+
+    public void importDonationDetailsFromCSV(String fileName) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            reader.readLine();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+                // Parse the data and create Donation objects
+                int donationID = Integer.parseInt(data[0]);
+                int donorID = Integer.parseInt(data[1]);
+                double donatedAmount = Double.parseDouble(data[2]);
+                LocalDate dateOfDonation = LocalDate.parse(data[3]);
+                String projectName = data[4];
+
+                Donation donation = new Donation(donorID, donatedAmount, dateOfDonation, projectName);
+                donation.setDonationID(donationID);
+                donationObjects.add(donation);
+            }
+            System.out.println("Details imported successfully from " + fileName);
+            System.out.println("--------------");
+            // Display imported information
+            System.out.println("Imported Donation Information:");
+            for (Donation donation : donationObjects) {
+                System.out.println("Donation ID: " + donation.getDonationID());
+                System.out.println("Donation Donor ID: " + donation.getDonationDonorID());
+                System.out.println("Donated Amount: " + donation.getDonatedAmount());
+                System.out.println("Project name for the donation: " + donation.getProjectNameForDonation());
+                System.out.println("--------------");
+            }
+        } catch (IOException | NumberFormatException | DateTimeParseException e) {
+            System.out.println("Error importing details from CSV: " + e.getMessage());
+        }
+    }
+
 
 
 
