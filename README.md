@@ -1,10 +1,4 @@
-## First
-This was my solution for my assignment in online Java course. My original repository for this assignment is private in organization group on GitHub and I imported my code to this repository.
-This was a big assignment for me and I had to fix and improved my code many times including handling the cases when the users enter with the wrong format, the ID doesn't exist.
-But git histories of methods, code related to case 1 - case 24 in each file are in an original private repository.
-The result photos and what I used to build the application is at the end of this README.
 
----
 ### Level of Difficulty: Hard
 ### Title: Comprehensive Charity Organization Campaign Management System
 ### Overview:
@@ -15,6 +9,104 @@ The application should be designed in a way that it can handle a large number of
 
 The assignment is divided into three milestones: Bronze Achievement, Silver Achievement, and Golden Achievement. Each milestone has its own set of tasks and deadline.
 
+---
+
+## First
+This was my solution for my assignment in online Java course. My original repository for this assignment is private in an organization group on GitHub and I imported my code to this repository.
+This was a big assignment for me and I had to fix and improved my code many times including handling the cases when the users enter with the wrong format, the ID doesn't exist.
+But git histories of methods, code related to case 1 - case 24 in each file are in an original private repository. After case 25, you can check here.
+The result photos and what I used to build the application is at the beginning, and then you will see the assignment description.
+
+
+### The Result
+#### Run the program
+- First, enter and store the information with option 1- option 4.
+
+![the result photo 1](main/photo-charity-app-project/charity-result-1.png)
+![the result photo 2](main/photo-charity-app-project/charity-result-2.png)
+![the result photo 3](main/photo-charity-app-project/charity-result-3.png)
+![the result photo 4](main/photo-charity-app-project/charity-result-4.png)
+![the result photo 5](main/photo-charity-app-project/charity-result-5.png)
+![the result photo 6](main/photo-charity-app-project/charity-result-6.png)
+![the result photo 7](main/photo-charity-app-project/charity-result-7.png)
+![the result photo 8](main/photo-charity-app-project/charity-result-8.png)
+![the result photo 9](main/photo-charity-app-project/charity-result-9.png)
+![the result photo 10](main/photo-charity-app-project/charity-result-10.png)
+![the result photo 11](main/photo-charity-app-project/charity-result-11.png)
+![the result photo 12](main/photo-charity-app-project/charity-result-12.png)
+![the result photo 13](main/photo-charity-app-project/charity-result-13.png)
+![the result photo 14](main/photo-charity-app-project/charity-result-14.png)
+![the result photo 15](main/photo-charity-app-project/charity-result-15.png)
+![the result photo 16](main/photo-charity-app-project/charity-result-16.png)
+![the result photo 17](main/photo-charity-app-project/charity-result-17.png)
+![the result photo 18](main/photo-charity-app-project/charity-result-18.png)
+![the result photo 19](main/photo-charity-app-project/charity-result-19.png)
+![the result photo 20](main/photo-charity-app-project/charity-result-20.png)
+![the result photo 21](main/photo-charity-app-project/charity-result-21.png)
+![the result photo 22](main/photo-charity-app-project/charity-result-22.png)
+![the result photo 23](main/photo-charity-app-project/charity-result-23.png)
+![the result photo 24](main/photo-charity-app-project/charity-result-24.png)
+![the result photo 25](main/photo-charity-app-project/charity-result-25.png)
+![the result photo 26](main/photo-charity-app-project/charity-result-26.png)
+![the result photo 27](main/photo-charity-app-project/charity-result-27.png)
+- After finishing entering and storing information for option 1 - 4.
+
+![the result photo 28](main/photo-charity-app-project/charity-result-28.png)
+![the result photo 29](main/photo-charity-app-project/charity-result-29.png)
+![the result photo 30](main/photo-charity-app-project/charity-result-30.png)
+![the result photo 31](main/photo-charity-app-project/charity-result-31.png)
+![the result photo 32](main/photo-charity-app-project/charity-result-32.png)
+![the result photo 33](main/photo-charity-app-project/charity-result-33.png)
+![the result photo 34](main/photo-charity-app-project/charity-result-34.png)
+![the result photo 35](main/photo-charity-app-project/charity-result-35.png)
+![the result photo 36](main/photo-charity-app-project/charity-result-36.png)
+![the result photo 37](main/photo-charity-app-project/charity-result-37.png)
+![the result photo 38](main/photo-charity-app-project/charity-result-38.png)
+![the result photo 39](main/photo-charity-app-project/charity-result-39.png)
+![the result photo 40](main/photo-charity-app-project/charity-result-40.png)
+![the result photo 41](main/photo-charity-app-project/charity-result-41.png)
+![the result photo 42](main/photo-charity-app-project/charity-result-42.png)
+![the result photo 43](main/photo-charity-app-project/charity-result-43.png)
+![the result photo 44](main/photo-charity-app-project/charity-result-44.png)
+
+*Donated amount from smaller amount to bigger amount
+
+![the result photo 45](main/photo-charity-app-project/charity-result-45.png)
+![the result photo 46](main/photo-charity-app-project/charity-result-46.png)
+![the result photo 47](main/photo-charity-app-project/charity-result-47.png)
+- Exporting the stored details into CSV files
+
+![the result photo 48](main/photo-charity-app-project/charity-result-48.png)
+![the result photo 49](main/photo-charity-app-project/charity-result-49.png)
+![the result photo 50](main/photo-charity-app-project/charity-result-50.png)
+![the result photo 51](main/photo-charity-app-project/charity-result-51.png)
+![the result photo 52](main/photo-charity-app-project/charity-result-52.png)
+- Run the program again to import the fresh information from CSV files.
+
+![the result photo 53](main/photo-charity-app-project/charity-result-53.png)
+![the result photo 54](main/photo-charity-app-project/charity-result-54.png)
+![the result photo 55](main/photo-charity-app-project/charity-result-55.png)
+![the result photo 56](main/photo-charity-app-project/charity-result-56.png)
+- Check if the imported information actually was successfully stored and if it works through the program
+
+![the result photo 57](main/photo-charity-app-project/charity-result-57.png)
+![the result photo 58](main/photo-charity-app-project/charity-result-58.png)
+
+-> It works!
+
+---
+
+
+### What I used
+Java, IntelliJ, Markdown, CSV
+
+
+### What I used in Java
+Access modifiers, Encapsulation, Constructor, Override, toString method, Static method, Static modifier, export to the files and import from the files
+
+
+---
+## - The rest of the assignment details -
 ### Bronze Achievement (Deadline: 2023/11/14)
 1. **Donor Class:** Create a `Donor` class with attributes like name, contact number, and email address. This class will represent a donor in the system. Each donor should have a unique ID. The class should have methods to get and set the values of these attributes.
 
@@ -221,11 +313,3 @@ Each of these collections has its own advantages and use cases, and they are cho
 
 ---
 
-### The Result
-
-
-### What I used
-
-
-### What I used in Java    System.out.println("Volunteer Name: " + volunteer.getVolunteerName());
-Access modifiers, Encapsulation, Constructor, Override, toString method, Static method, Static modifier

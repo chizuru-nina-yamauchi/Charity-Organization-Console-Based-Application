@@ -216,6 +216,7 @@ public class DonationTracker {
                 System.out.println("Donation ID: " + donation.getDonationID());
                 System.out.println("Donation Donor ID: " + donation.getDonationDonorID());
                 System.out.println("Donated Amount: " + donation.getDonatedAmount());
+                System.out.println("Donated Date: " + donation.getDateOfDonation());
                 System.out.println("Project name for the donation: " + donation.getProjectNameForDonation());
                 System.out.println("--------------");
             }

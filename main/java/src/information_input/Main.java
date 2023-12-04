@@ -9,7 +9,6 @@ import information_organize.ProjectTracker;
 import information_organize.Volunteer;
 import information_organize.VolunteerTracker;
 
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -33,7 +32,7 @@ public class Main {
 
         while(true){
             System.out.println("----------------------------------------------------------------------------------------");
-            System.out.println("Option: *You have to add the information of option 1 - 4 before selecting option 5 - 29.");
+            System.out.println("Option: *Please add the information of option 1 - 4 before selecting option 5 - 28.");
             System.out.println("1. Add a donor's information.");
             System.out.println("2. Add a volunteer's information.");
             System.out.println("3. Add a project information.");
@@ -549,7 +548,7 @@ public class Main {
                             System.out.println("Donors sorted by name(Alphabetically): " + "\n" + donorTracker.sortDonorsByName());
                             System.out.println("Volunteers sorted by name(Alphabetically): " + "\n" + volunteerTracker.sortVolunteersByName());
                             System.out.println("Projects sorted by name(Alphabetically):" + "\n" + projectTracker.sortProjectsByName());
-                            System.out.println("Donation sorted by amount(from most to less): " + "\n" + donationTracker.sortDonationsByAmount());
+                            System.out.println("Donation sorted by amount(from smaller amount to the bigger amount): " + "\n" + donationTracker.sortDonationsByAmount());
                             break;
 
                         case 27:

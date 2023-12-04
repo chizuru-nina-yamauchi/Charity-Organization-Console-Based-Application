@@ -175,9 +175,8 @@ public class ProjectTracker {
             for (Map.Entry<String, Project> entry : projectObjects.entrySet()) {
                 Project project = entry.getValue();
                 System.out.println("Project Name: " + project.getProjectName());
-                System.out.println("Project Target Amount: " + project.getProjectTargetAmount());
                 System.out.println("Description: " + project.getProjectDescription());
-                System.out.println("Project assigned volunteers: " + project.getProjectAssignedVolunteers());
+                System.out.println("Project Target Amount: " + project.getProjectTargetAmount());
                 System.out.println("--------------");
             }
         } catch (IOException | NumberFormatException e) {
