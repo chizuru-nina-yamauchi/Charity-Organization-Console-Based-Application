@@ -18,7 +18,16 @@ But git histories of methods, code related to case 1 - case 24 in each file are 
 The result photos and what I used to build the application is at the beginning, and then you will see the assignment description.
 
 
-### The Result
+### What I used
+Java, IntelliJ, Markdown, CSV
+
+
+### What I used in Java
+Access modifiers, Encapsulation, Constructor, Override, toString method, Static method, Static modifier, export to the files and import from the files
+
+
+
+### The Result Photos(Please click the photos if you need a closer look)
 #### Run the program
 - First, enter and store the information with option 1- option 4.
 
@@ -93,16 +102,6 @@ The result photos and what I used to build the application is at the beginning, 
 ![the result photo 58](main/photo-charity-app-project/charity-result-58.png)
 
 -> It works!
-
----
-
-
-### What I used
-Java, IntelliJ, Markdown, CSV
-
-
-### What I used in Java
-Access modifiers, Encapsulation, Constructor, Override, toString method, Static method, Static modifier, export to the files and import from the files
 
 
 ---
